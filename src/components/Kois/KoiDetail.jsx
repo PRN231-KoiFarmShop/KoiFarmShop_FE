@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import FishService from "../Services/FishService";
-import { FaMoneyBill, FaShoppingCart } from "react-icons/fa"; // Import cart icon
+import { FaMoneyBill, FaShoppingCart } from "react-icons/fa";
+import Cookies from "js-cookie";
+import AlertPopup from "../Popup/AlertPopup";
+import Popup from "../Popup/Popup";
 
 const KoiDetail = () => {
   const { fishId } = useParams();
   const [koiData, setKoiData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [loginPopup, setLoginPopup] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLoginPopup = () => {
+    setLoginPopup(!loginPopup);
+  };
 
   useEffect(() => {
     const fetchKoiData = async () => {
@@ -23,6 +33,28 @@ const KoiDetail = () => {
 
     fetchKoiData();
   }, [fishId]);
+
+  const handleAddToCart = () => {
+    const token = Cookies.get("token");
+    if (!token) {
+      setIsLoggedIn(false);
+      setShowAlert(true);
+    } else {
+      // Proceed with adding to cart
+      setIsLoggedIn(true);
+      alert("Item added to cart!");
+      // Add your logic for adding the item to cart here
+    }
+  };
+
+  const handleAlertCancel = () => {
+    setShowAlert(false);
+  };
+
+  const handleAlertContinue = () => {
+    setShowAlert(false);
+    setLoginPopup(true);
+  };
 
   if (loading) return <div className="text-center">Loading...</div>;
   if (error)
@@ -58,14 +90,25 @@ const KoiDetail = () => {
         </p>
         <p className="flex items-center mt-2">
           <FaMoneyBill className="text-green-500 mr-1" />
-          <span className="text-xl font-bold">{koiData.price} VND</span>{" "}
+          <span className="text-xl font-bold">{koiData.price} VND</span>
         </p>
-
-        <button className="mt-4 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 flex items-center">
+        <button
+          className="mt-4 px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 flex items-center"
+          onClick={handleAddToCart}
+        >
           <FaShoppingCart className="mr-1" />
           Add to Cart
         </button>
       </div>
+      {showAlert && (
+        <AlertPopup
+          title="Need login to continue!"
+          onCancel={handleAlertCancel}
+          onContinue={handleAlertContinue}
+        />
+      )}
+      {/* Popup Component */}
+      <Popup loginPopup={loginPopup} setLoginPopup={setLoginPopup} />
     </div>
   );
 };
