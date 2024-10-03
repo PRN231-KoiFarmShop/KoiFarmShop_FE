@@ -7,6 +7,8 @@ import Footer from "./components/Footer/Footer";
 import AboutUs from "./components/MainPages/AboutUs";
 import Contact from "./components/MainPages/Contact";
 import Policy from "./components/MainPages/Policy";
+import Kois from "./components/MainPages/ListKois";
+import KoiDetail from "./components/Kois/KoiDetail";
 import Home from "./components/MainPages/Home";
 
 const App = () => {
@@ -35,6 +37,8 @@ const App = () => {
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/policy" element={<Policy />} />
+          <Route path="/kois" element={<Kois />} />
+          <Route path="/kois/:fishId" element={<KoiDetail />} />
         </Routes>
         <Footer />
       </div>

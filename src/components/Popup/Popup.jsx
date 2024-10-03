@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoCloseOutline } from "react-icons/io5";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import AuthService from '../Services/AuthService';
-import Cookies from 'js-cookie';
+import AuthService from "../Services/AuthService";
+import Cookies from "js-cookie";
 
 const Popup = ({ loginPopup, setLoginPopup }) => {
   const [activeTab, setActiveTab] = useState("login");
@@ -22,7 +22,13 @@ const Popup = ({ loginPopup, setLoginPopup }) => {
 
   const handleTabSwitch = (tab) => {
     setActiveTab(tab);
-    setFormData({ email: "", password: "", confirmPassword: "", phone: "", address: "" });
+    setFormData({
+      email: "",
+      password: "",
+      confirmPassword: "",
+      phone: "",
+      address: "",
+    });
     setError("");
     setSuccess("");
   };
@@ -38,7 +44,7 @@ const Popup = ({ loginPopup, setLoginPopup }) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-  
+
     try {
       if (activeTab === "login") {
         const loginData = {
@@ -47,11 +53,11 @@ const Popup = ({ loginPopup, setLoginPopup }) => {
         };
         const response = await AuthService.login(loginData);
         // Check response structure
-        if (response && response.data.isSuccess) {
+        if (response && response.status === 200) {
           setSuccess("Login successful!");
           // Set token in cookie
-          Cookies.set('token', response.data.data.token, { expires: 7 });
-          console.log("User:", response.data.data.user);
+          Cookies.set("token", response.data.token, { expires: 7 });
+          console.log("User:", response.user);
           // wait 1 seconds and close popup then reload current page
           setTimeout(() => {
             setLoginPopup(false); // Close the popup
@@ -66,7 +72,7 @@ const Popup = ({ loginPopup, setLoginPopup }) => {
           setError("Passwords do not match!");
           return;
         }
-  
+
         const signUpData = {
           email: formData.email,
           password: formData.password,
@@ -75,9 +81,9 @@ const Popup = ({ loginPopup, setLoginPopup }) => {
           address: formData.address,
         };
         const response = await AuthService.signUp(signUpData);
-  
+
         // Check response structure
-        if (response && response.data.isSuccess) {
+        if (response && response.status === 200) {
           setSuccess("Signup successful! Please log in.");
           alert("Signup successful! Please log in.");
           handleTabSwitch("login"); // Switch to login tab after successful signup
@@ -86,9 +92,11 @@ const Popup = ({ loginPopup, setLoginPopup }) => {
         }
       }
     } catch (err) {
-      setError("An error occurred: " + (err.message || "Something went wrong!"));
+      setError(
+        "An error occurred: " + (err.message || "Something went wrong!")
+      );
     }
-  };  
+  };
 
   if (!loginPopup) return null;
 
@@ -109,13 +117,21 @@ const Popup = ({ loginPopup, setLoginPopup }) => {
         {/* Tabs */}
         <div className="flex justify-around mb-6">
           <button
-            className={`py-2 px-4 rounded-lg font-semibold ${activeTab === "login" ? "bg-primary text-white" : "bg-gray-300 dark:bg-gray-700"}`}
+            className={`py-2 px-4 rounded-lg font-semibold ${
+              activeTab === "login"
+                ? "bg-primary text-white"
+                : "bg-gray-300 dark:bg-gray-700"
+            }`}
             onClick={() => handleTabSwitch("login")}
           >
             Login
           </button>
           <button
-            className={`py-2 px-4 rounded-lg font-semibold ${activeTab === "signup" ? "bg-primary text-white" : "bg-gray-300 dark:bg-gray-700"}`}
+            className={`py-2 px-4 rounded-lg font-semibold ${
+              activeTab === "signup"
+                ? "bg-primary text-white"
+                : "bg-gray-300 dark:bg-gray-700"
+            }`}
             onClick={() => handleTabSwitch("signup")}
           >
             Signup
@@ -174,7 +190,11 @@ const Popup = ({ loginPopup, setLoginPopup }) => {
                   className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                  {showConfirmPassword ? (
+                    <AiOutlineEyeInvisible />
+                  ) : (
+                    <AiOutlineEye />
+                  )}
                 </div>
               </div>
 
