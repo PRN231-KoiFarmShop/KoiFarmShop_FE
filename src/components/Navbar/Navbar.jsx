@@ -113,10 +113,15 @@ const Navbar = () => {
               ) : (
                 <Button
                   variant="contained"
-                  color="primary"
                   sx={{
-                    border: "2px solid #000",
+                    backgroundColor: "#f5b400",
+                    color: "#fff",
+                    border: "1.5px solid #000",
                     borderRadius: "16px",
+                    height: "30px",
+                    "&:hover": {
+                      backgroundColor: "#e0a200",
+                    },
                   }}
                   onClick={handleLoginPopup}
                 >
