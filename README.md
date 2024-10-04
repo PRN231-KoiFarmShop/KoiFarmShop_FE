@@ -12,10 +12,9 @@
 
 ## 📷 Screenshots
 
-![Home](#)
-![Kois](#)
-![Package](#)
-![Dark](#)
+![Home](screenshots/home.png)
+![Kois](screenshots/fish.png)
+![Package](screenshots/package.png)
 
 # 🔥 How to run
 
