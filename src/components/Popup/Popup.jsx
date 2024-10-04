@@ -92,9 +92,13 @@ const Popup = ({ loginPopup, setLoginPopup }) => {
         }
       }
     } catch (err) {
-      setError(
-        "An error occurred: " + (err.message || "Something went wrong!")
-      );
+      if (err.response && err.response.data) {
+        setError("An error occurred: " + err.response.data);
+      } else {
+        setError(
+          "An error occurred: " + (err.message || "Something went wrong!")
+        );
+      }
     }
   };
 
