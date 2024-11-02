@@ -10,7 +10,7 @@ import Policy from "./components/MainPages/Policy";
 import Kois from "./components/MainPages/ListKois";
 import KoiDetail from "./components/Kois/KoiDetail";
 import Home from "./components/MainPages/Home";
-
+import ShoppingCart from "./components/Cart/Cart";
 const App = () => {
   const [loginPopup, setLoginPopup] = React.useState(false);
 
@@ -38,6 +38,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/policy" element={<Policy />} />
           <Route path="/kois" element={<Kois />} />
+          <Route path="/cart" element={<ShoppingCart />} />
           <Route path="/kois/:fishId" element={<KoiDetail />} />
         </Routes>
         <Footer />

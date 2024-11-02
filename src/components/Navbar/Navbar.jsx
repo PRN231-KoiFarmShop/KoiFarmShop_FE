@@ -8,7 +8,7 @@ import DarkMode from "./DarkMode";
 import Popup from "../Popup/Popup";
 import Cookies from "js-cookie";
 import Avatar from "@mui/material/Avatar";
-
+import Cart from "../Cart/Cart";
 const Menu = [
   { id: 1, name: "Home", link: "/" },
   { id: 2, name: "About us", link: "/aboutus" },
@@ -29,6 +29,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
 
+  
   const handleLoginPopup = () => {
     setLoginPopup(!loginPopup);
   };
@@ -179,6 +180,7 @@ const Navbar = () => {
 
       {/* Popup Component */}
       <Popup loginPopup={loginPopup} setLoginPopup={setLoginPopup} />
+      {/* <Cart handleOpen={cartOpen}/> */}
     </div>
   );
 };
