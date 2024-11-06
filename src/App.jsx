@@ -11,6 +11,8 @@ import Kois from "./components/MainPages/ListKois";
 import KoiDetail from "./components/Kois/KoiDetail";
 import Home from "./components/MainPages/Home";
 import ShoppingCart from "./components/Cart/Cart";
+import Order from "./components/Order/Order";
+import BlogSection from "./components/News/New";
 const App = () => {
   const [loginPopup, setLoginPopup] = React.useState(false);
 
@@ -38,7 +40,9 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/policy" element={<Policy />} />
           <Route path="/kois" element={<Kois />} />
+          <Route path="/news" element={<BlogSection />} />
           <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/order" element={<Order />} />
           <Route path="/kois/:fishId" element={<KoiDetail />} />
         </Routes>
         <Footer />

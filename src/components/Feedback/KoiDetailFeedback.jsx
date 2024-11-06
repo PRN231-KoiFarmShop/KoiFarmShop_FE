@@ -23,13 +23,8 @@ export function KoiDetailFeedback(fishId) {
 
      console.log(feedbackData);
      if (loading) return <div className="text-center">Loading...</div>;
-     if (error)
-          return (
-               <div className="text-red-500">
-                    Error loading Koi details: {error.message}
-               </div>
-          );
-     if (!feedbackData) return <div>No Koi data found.</div>;
+     if (error || !feedbackData)
+         return <div>No Koi data found.</div>;
      return (
           <div>
                {feedbackData.map((feedback, index) => (
